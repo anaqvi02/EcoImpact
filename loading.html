@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generating Your Results</title>
+    <style>
+        :root {
+            --light-blue: #7BD4FF;
+            --medium-blue: #4795D1;
+            --dark-blue: #1B3B8B;
+            --gradient: linear-gradient(135deg, var(--light-blue), var(--dark-blue));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: #fafafa;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at 50% 50%, rgba(123, 212, 255, 0.1) 0%, rgba(27, 59, 139, 0.05) 100%);
+        }
+
+        .loading-container {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .loading-subtitle {
+            color: #4B5563;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out 0.2s forwards;
+        }
+
+        .loading-steps {
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out 0.4s forwards;
+        }
+
+        .step {
+            margin: 0.5rem 0;
+            color: #4B5563;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .step.active {
+            color: var(--medium-blue);
+            font-weight: 500;
+        }
+
+        .check-icon {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+        }
+
+        .step.done .check-icon {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--medium-blue);
+            border-radius: 50%;
+            margin: 2rem auto;
+            animation: spin 1s linear infinite;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out 0.6s forwards, spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .progress-bar {
+            width: 300px;
+            height: 4px;
+            background: rgba(123, 212, 255, 0.2);
+            border-radius: 2px;
+            margin: 2rem auto;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out 0.8s forwards;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: var(--gradient);
+            animation: progress 5s linear forwards;
+        }
+
+        @keyframes progress {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container">
+        <h1 class="loading-title">Analyzing Your Impact</h1>
+        <p class="loading-subtitle">Please wait while our AI processes your responses</p>
+
+        <div class="loading-steps">
+            <div class="step done">
+                <span class="check-icon">✓</span>
+                <span>Collecting responses</span>
+            </div>
+            <div class="step active">
+                <span class="check-icon"></span>
+                <span>Generating analysis</span>
+            </div>
+            <div class="step">
+                <span class="check-icon"></span>
+                <span>Preparing recommendations</span>
+            </div>
+        </div>
+
+        <div class="loader"></div>
+        <div class="progress-bar"></div>
+    </div>
+
+    <script>
+        // Simulate progress steps
+        const steps = document.querySelectorAll('.step');
+        let currentStep = 1;
+
+        function updateSteps() {
+            steps[currentStep - 1].classList.remove('active');
+            steps[currentStep - 1].classList.add('done');
+            if (currentStep < steps.length) {
+                steps[currentStep].classList.add('active');
+                currentStep++;
+            }
+        }
+
+        // Update steps every 1.5 seconds
+        setTimeout(updateSteps, 1500);
+        setTimeout(updateSteps, 3000);
+
+        // Redirect to results page after 5 seconds
+        setTimeout(() => {
+            window.location.href = "/results";
+        }, 5000);
+    </script>
+</body>
+</html>

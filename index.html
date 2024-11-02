@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoImpact Calculator</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        /* Only including loading overlay styles as they're not in external CSS */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .loading-content {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #4795D1;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            animation: spin 1s linear infinite;
+        }
+
+        .progress-bar-loading {
+            width: 300px;
+            height: 4px;
+            background: rgba(71, 149, 209, 0.2);
+            border-radius: 2px;
+            margin: 2rem auto;
+            overflow: hidden;
+        }
+
+        .progress-fill-loading {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(135deg, #7BD4FF, #4795D1);
+            animation: progress 5s linear forwards;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-transition"></div>
+    <div class="dot-pattern"></div>
+
+    <div id="landing-page">
+        <div class="container">
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Eco<span class="accent">Impact</span></h1>
+                    <p>Make informed decisions about your daily habits and their impact on our planet. Simple, accurate, and actionable insights.</p>
+                    <div class="button-container">
+                        <a href="#" class="cta-button">Get Started</a>
+                        <button class="next-button" onclick="navigateToCalculator()">
+                            Begin Assessment
+                            <span class="arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="visual-container">
+                    <div class="circle"></div>
+                    <div class="calculator-preview">
+                        <img src="/api/placeholder/600/450" alt="Calculator Interface" class="preview-image">
+                    </div>
+                </div>
+            </section>
+
+            <div class="metrics">
+                <div class="metric">
+                    <div class="metric-value">2M+</div>
+                    <div class="metric-label">Active Users</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">75K</div>
+                    <div class="metric-label">Tons CO₂ Saved</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">92%</div>
+                    <div class="metric-label">Accuracy Rate</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="calculator-page" style="display: none;">
+        <button class="back-button" onclick="navigateToLanding()">
+            ← Back
+        </button>
+        <div class="container">
+            <form id="question-form" class="question-form" onsubmit="return false;">
+                <div class="progress-bar">
+                    <div class="progress-bar-fill"></div>
+                </div>
+<!-- Question 1 -->
+                <div class="question-step active" data-step="1">
+                    <div class="question-number">Question 1/10</div>
+                    <div class="question-text">How do you typically commute to work?</div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="transportation" required>
+                        <input type="number" class="form-control mt-3" name="distance" placeholder="Daily distance (miles)" required>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-step" data-step="2">
+                    <div class="question-number">Question 2/10</div>
+                    <div class="question-text">What percentage of your home's electricity comes from renewable sources?</div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="renewable_percentage" min="0" max="100" required>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-step" data-step="3">
+                    <div class="question-number">Question 3/10</div>
+                    <div class="question-text">How many hours per day do you use air conditioning/heating?</div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="ac_hours" min="0" max="24" required>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question-step" data-step="4">
+                    <div class="question-number">Question 4/10</div>
+                    <div class="question-text">How many single-use plastic items do you use per week?</div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="plastic_items" min="0" required>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question-step" data-step="5">
+                    <div class="question-number">Question 5/10</div>
+                    <div class="question-text">What is your average monthly water consumption in gallons?</div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="water_consumption" min="0" required>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="question-step" data-step="6">
+                    <div class="question-number">Question 6/10</div>
+                    <div class="question-text">How many flights do you take per year?</div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="flights_per_year" min="0" required>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="question-step" data-step="7">
+                    <div class="question-number">Question 7/10</div>
+                    <div class="question-text">What percentage of your diet consists of meat and dairy?</div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="meat_dairy_percentage" min="0" max="100" required>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="question-step" data-step="8">
+                    <div class="question-number">Question 8/10</div>
+                    <div class="question-text">How many hours of electronics usage (TV, computer, etc.) do you average daily?</div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="electronics_hours" min="0" max="24" required>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="question-step" data-step="9">
+                    <div class="question-number">Question 9/10</div>
+                    <div class="question-text">Do you use a programmable thermostat?</div>
+                    <div class="form-group">
+                        <select class="form-control" name="programmable_thermostat" required>
+                            <option value="">Select an option</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="question-step" data-step="10">
+                    <div class="question-number">Question 10/10</div>
+                    <div class="question-text">What is your household size?</div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="household_size" min="1" required>
+                    </div>
+                </div>
+
+                <div class="btn-container">
+                    <button type="button" class="btn btn-prev" onclick="prevQuestion()" style="display: none;">Previous</button>
+                    <button type="button" class="btn btn-next" onclick="nextQuestion()">Next</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay">
+        <div class="loading-content">
+            <div class="loader"></div>
+            <h2>Analyzing Your Impact</h2>
+            <p>Our AI is processing your responses...</p>
+            <div class="progress-bar-loading">
+                <div class="progress-fill-loading"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 10;
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.querySelector('.progress-bar-fill').style.width = `${progress}%`;
+        }
+
+        function showQuestion(step) {
+            document.querySelectorAll('.question-step').forEach(q => {
+                q.classList.remove('active');
+                gsap.to(q, { opacity: 0, x: 20, duration: 0.3 });
+            });
+
+            const questionEl = document.querySelector(`[data-step="${step}"]`);
+            questionEl.classList.add('active');
+            gsap.to(questionEl, { opacity: 1, x: 0, duration: 0.3 });
+
+            document.querySelector('.btn-prev').style.display = step === 1 ? 'none' : 'block';
+            document.querySelector('.btn-next').textContent = step === totalSteps ? 'Submit' : 'Next';
+        }
+
+        function validateCurrentStep() {
+            const currentQuestionEl = document.querySelector(`[data-step="${currentStep}"]`);
+            const inputs = currentQuestionEl.querySelectorAll('input, select');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!input.value) {
+                    isValid = false;
+                    input.classList.add('invalid');
+                } else {
+                    input.classList.remove('invalid');
+                }
+            });
+
+            return isValid;
+        }
+
+        function nextQuestion() {
+            if (!validateCurrentStep()) {
+                alert('Please fill in all fields before proceeding.');
+                return;
+            }
+
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showQuestion(currentStep);
+                updateProgress();
+            } else {
+                submitForm();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentStep > 1) {
+                currentStep--;
+                showQuestion(currentStep);
+                updateProgress();
+            }
+        }
+
+        async function submitForm() {
+            const form = document.getElementById('question-form');
+            const loadingOverlay = document.getElementById('loading-overlay');
+
+            // Show loading overlay
+            loadingOverlay.style.display = 'flex';
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    // Wait for 5 seconds before redirecting
+                    setTimeout(() => {
+                        window.location.href = '/end';
+                    }, 5000);
+                } else {
+                    throw new Error(data.message || 'Form submission failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('There was an error submitting your responses. Please try again.');
+                loadingOverlay.style.display = 'none';
+            }
+        }
+
+        function navigateToCalculator() {
+            const tl = gsap.timeline();
+
+            tl.to('.page-transition', {
+                scaleX: 1,
+                duration: 0.5,
+                ease: 'power4.inOut'
+            })
+            .to('#landing-page', {
+                display: 'none',
+                opacity: 0,
+                duration: 0.1
+            })
+            .to('#calculator-page', {
+                display: 'block',
+                duration: 0.1
+            })
+            .to('#calculator-page', {
+                opacity: 1,
+                duration: 0.5
+            })
+            .to('.page-transition', {
+                scaleX: 0,
+                transformOrigin: 'right',
+                duration: 0.5,
+                ease: 'power4.inOut'
+            });
+        }
+
+        function navigateToLanding() {
+            const tl = gsap.timeline();
+
+            tl.to('.page-transition', {
+                scaleX: 1,
+                transformOrigin: 'left',
+                duration: 0.5,
+                ease: 'power4.inOut'
+            })
+            .to('#calculator-page', {
+                display: 'none',
+                opacity: 0,
+                duration: 0.1
+            })
+            .to('#landing-page', {
+                display: 'block',
+                duration: 0.1
+            })
+            .to('#landing-page', {
+                opacity: 1,
+                duration: 0.5
+            })
+            .to('.page-transition', {
+                scaleX: 0,
+                transformOrigin: 'right',
+                duration: 0.5,
+                ease: 'power4.inOut'
+            });
+        }
+
+        // Initialize form
+        document.addEventListener('DOMContentLoaded', () => {
+            showQuestion(1);
+            updateProgress();
+
+            // Initial animations
+            gsap.to('.hero-content', {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: 'power3.out'
+            });
+
+            gsap.to('.visual-container', {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                delay: 0.3,
+                ease: 'power3.out'
+            });
+
+            gsap.to('.metrics', {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                delay: 0.6,
+                ease: 'power3.out'
+            });
+
+            // Animate metric numbers
+            const metrics = document.querySelectorAll('.metric-value');
+            metrics.forEach(metric => {
+                const value = metric.innerHTML;
+                const endValue = parseInt(value.replace(/[^0-9]/g, ''));
+                const suffix = value.replace(/[0-9]/g, '');
+
+                metric.innerHTML = '0' + suffix;
+
+                gsap.to(metric, {
+                    innerHTML: endValue + suffix,
+                    duration: 2,
+                    delay: 0.8,
+                    snap: { innerHTML: 1 },
+                    ease: 'power1.out'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

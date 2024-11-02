@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Impact Form - Question 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #1e90ff;
+        }
+        .form-group {
+            margin: 20px 0;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            color: white;
+            background-color: #4169e1;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #1e90ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Question 1</h1>
+        <form action="/question3" method="POST">
+            <div class="form-group">
+                <label for=answer2>What percentage of your home's electricity comes from renewable sources?</label>
+                <input type="text" id="transportation" name="transportation" required>
+            </div>
+            <button type="submit" class="btn">Next Question</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Environmental Impact Analysis</title>
+    <style>
+        :root {
+            --light-blue: #7BD4FF;
+            --medium-blue: #4795D1;
+            --dark-blue: #1B3B8B;
+            --gradient: linear-gradient(135deg, var(--light-blue), var(--dark-blue));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: #fafafa;
+            color: #1a1a1a;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+            background: radial-gradient(circle at 50% 50%, rgba(123, 212, 255, 0.1) 0%, rgba(27, 59, 139, 0.05) 100%);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(27, 59, 139, 0.05);
+            border: 1px solid rgba(123, 212, 255, 0.2);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(123, 212, 255, 0.2);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            color: #4B5563;
+            font-size: 1.1rem;
+        }
+
+        .ai-feedback {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(123, 212, 255, 0.3);
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .ai-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ai-title {
+            font-size: 1.5rem;
+            color: var(--dark-blue);
+        }
+
+        .feedback-content {
+            white-space: pre-line;
+            line-height: 1.8;
+            color: #4B5563;
+            font-size: 1.1rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(27, 59, 139, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-container {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .button {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .primary-button {
+            background: var(--gradient);
+            color: white;
+            border: none;
+        }
+
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(27, 59, 139, 0.2);
+        }
+
+        .secondary-button {
+            background: transparent;
+            color: var(--dark-blue);
+            border: 2px solid var(--dark-blue);
+        }
+
+        .secondary-button:hover {
+            background: var(--dark-blue);
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+
+            .button-container {
+                flex-direction: column;
+            }
+
+            .button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Icons */
+        .icon {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">Your Environmental Impact Analysis</h1>
+            <p class="subtitle">AI-Generated Insights and Recommendations</p>
+        </header>
+
+        <div class="ai-feedback">
+            <div class="ai-header">
+                <div class="ai-icon">
+                    <svg class="icon" viewBox="0 0 24 24" stroke="white">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h2 class="ai-title">AI Analysis</h2>
+            </div>
+            <div class="feedback-content">
+                {{ ai_feedback }}
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button class="button primary-button" onclick="window.print()">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
+                    <path d="M6 14h12v8H6z"/>
+                </svg>
+                Save Report
+            </button>
+            <a href="/static" class="button secondary-button">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Back to Calculator
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Optional: Add any interactive features here
+        document.addEventListener('DOMContentLoaded', function() {
+            // Example: Highlight important numbers in the feedback
+            const feedbackContent = document.querySelector('.feedback-content');
+            feedbackContent.innerHTML = feedbackContent.innerHTML.replace(
+                /(\d+\.?\d*)/g,
+                '<strong style="color: var(--medium-blue)">$1</strong>'
+            );
+        });
+    </script>
+</body>
+</html>
