@@ -26,7 +26,9 @@ To get started with the EcoImpact Calculator, follow these steps:
    ```bash
    cd Horizonhackzpart2
    ```
-3. Open index.html in your web browser to start the application.
+4. Insert your OpenAPI key in app.py
+   
+5. Open app.py in your web browser to start the application.
 
 ## Contributors
 
