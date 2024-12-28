@@ -1,4 +1,5 @@
-# EcoImpact Calculator
+# ![ecoimpact](https://github.com/user-attachments/assets/84c362a4-f481-40c1-9ff4-b8380f0f6ca5)
+
 
 Presented at Horizon Hacks 2024. EcoImpact Calculator is a web application designed to help users make informed decisions about their daily habits and their impact on the environment. The application provides simple, accurate, and actionable insights based on user inputs.
 
