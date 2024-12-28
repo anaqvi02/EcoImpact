@@ -35,5 +35,5 @@ To get started with the EcoImpact Calculator, follow these steps:
 - [Peter (peteryhs)](https://github.com/peteryhs): Front end / back end
 - [Ali (anaqvi02)](https://github.com/anaqvi02): Back end / front end
 - [Aiden (aidenpinto)](https://github.com/aidenpinto): Model engineer
-- Daniel: Honorary member
+- Daniel: Advisor
   
