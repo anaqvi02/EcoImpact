@@ -31,6 +31,12 @@ To get started with the EcoImpact Calculator, follow these steps:
 4. Insert your OpenAPI key in app.py
    
 5. Open app.py in your web browser to start the application.
+## Website Showcase:
+<img width="890" alt="Screenshot 2025-03-15 at 4 32 26 PM" src="https://github.com/user-attachments/assets/def56052-b90d-4f36-a7e1-9a0a1d618c48" />
+<img width="1163" alt="Screenshot 2025-03-15 at 4 32 35 PM" src="https://github.com/user-attachments/assets/cd38bad0-c9d3-41a5-8a34-14f34ef7245f" />
+
+<img width="1512" alt="Screenshot 2025-03-15 at 4 32 11 PM" src="https://github.com/user-attachments/assets/f49bf7cf-936d-4374-9317-b8fa83b08829" />
+
 
 ## Contributors
 
